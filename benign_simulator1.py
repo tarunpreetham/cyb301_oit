@@ -1,0 +1,73 @@
+# CYB 301 - BENIGN MALWARE BEHAVIOUR SIMULATOR
+# This program is intentionally non-destructive
+
+from pathlib import Path
+import platform
+import socket
+import time
+import urllib.parse
+import urllib.request
+import base64
+
+# Below are the values that should be modified by students
+
+LAB_SERVER = "http://192.168.0.2:8000"
+
+STUDENT_TAG = "Instructor"
+
+MARKER_FILENAME = "CYB301_TEST.txt"
+
+ENCODED_MESSAGE = "Q11CMzAxIGJlbmlnbiBzaW11bGF0b3I="
+
+TEST_MESSAGE = base64.b64decode(
+	ENCODED_MESSAGE
+).decode()
+
+
+BEACON_DELAY = 3
+
+
+# Below is the lab behaviour
+
+print("[+] Simulator starting")
+
+sandbox = Path.home() / "cyb301_sandbox"
+
+sandbox.mkdir(exist_ok=True)
+
+marker = sandbox / MARKER_FILENAME
+
+marker.write_text(
+	f"{TEST_MESSAGE}\n"
+	f"Student: {STUDENT_TAG}\n"
+	f"Host:	{socket.gethostname()}\n"
+	f"OS: {platform.system()}\n"
+)
+
+print(f"[+] Created marker file: {marker}")
+
+data = {
+	"student": STUDENT_TAG,
+	"host": socket.gethostname(),
+	"os": platform.system(),
+	"message": TEST_MESSAGE
+}
+
+query = urllib.parse.urlencode(data)
+
+url = LAB_SERVER + "/?" + query
+
+print(f"[+] Waiting {BEACON_DELAY} seconds")
+
+time.sleep(BEACON_DELAY)
+
+print("[+] Sending benign HTTP beacon")
+print(f"[DEBUG] URL = {url}")
+
+try:
+	with urllib.request.urlopen(url, timeout=5) as response:
+		print(f"[+] Server responded: HTTP {response.status}")
+except Exception as error:
+	print(f"[-] Connection failed: {error}")
+
+print("[+] Simulator Finished")
