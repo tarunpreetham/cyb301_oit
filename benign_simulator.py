@@ -16,8 +16,6 @@ STUDENT_TAG = "name of the student"
 
 MARKER_FILENAME = "CYB301_TEST.txt"
 
-ENCODED_MESSAGE = "Q11CMzAxIGJlbmlnbiBzaW11bGF0b3I="
-
 TEST_MESSAGE = "CYB301 benign simulator"
 
 BEACON_DELAY = 3
