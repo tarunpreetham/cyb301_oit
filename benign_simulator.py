@@ -10,7 +10,7 @@ import urllib.request
 
 # Below are the values that should be modified by students
 
-LAB_SERVER = "http://192.168.56.102:8000"
+LAB_SERVER = "http://replace_with_receiver_ip:8000"
 
 STUDENT_TAG = "name of the student"
 
