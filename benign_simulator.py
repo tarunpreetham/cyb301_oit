@@ -7,7 +7,6 @@ import socket
 import time
 import urllib.parse
 import urllib.request
-import base64
 
 # Below are the values that should be modified by students
 
@@ -19,16 +18,14 @@ MARKER_FILENAME = "CYB301_TEST.txt"
 
 ENCODED_MESSAGE = "Q11CMzAxIGJlbmlnbiBzaW11bGF0b3I="
 
-TEST_MESSAGE = base64.b64decode(
-	ENCODED_MESSAGE
-).decode()
+TEST_MESSAGE = "CYB301 benign simulator"
 
 BEACON_DELAY = 3
 
 
 # Below is the lab behaviour
 
-print("[+] Simulator starting")
+print("[+] CYB301 benign simulator starting")
 
 sandbox = Path.home() / "cyb301_sandbox"
 
